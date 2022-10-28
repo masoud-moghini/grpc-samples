@@ -1,4 +1,4 @@
-package com.personel.moghini;
+package com.personel.moghini.grpc.server;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;

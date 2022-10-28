@@ -9,7 +9,7 @@ package com.proto.dummy;
 public final class DummyMessage extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:dummy.DummyMessage)
-    DummyMessageOrBuilder {
+        com.proto.dummy.DummyMessageOrBuilder {
 private static final long serialVersionUID = 0L;
   // Use DummyMessage.newBuilder() to construct.
   private DummyMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {

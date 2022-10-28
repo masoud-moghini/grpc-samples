@@ -2,7 +2,10 @@
 plugins {
     id 'java'
     id 'com.google.protobuf' version '0.8.18'
+    id 'idea'
 }
+apply plugin: 'java'
+apply plugin: 'com.google.protobuf'
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -25,6 +28,8 @@ protobuf {
         }
     }
 }
+
+
 dependencies {
     runtimeOnly 'io.grpc:grpc-netty-shaded:1.50.2'
     implementation 'io.grpc:grpc-protobuf:1.50.2'
