@@ -7,9 +7,12 @@ import java.io.IOException;
 
 public class GrpcServer {
     public static void main(String[] args) throws IOException, InterruptedException {
-        System.out.println("hello fro gRPC");
+        System.out.println("hello from gRPC");
 
-        Server server = ServerBuilder.forPort(50010).build();
+        Server server = ServerBuilder.forPort(50010)
+                .addService(new GreetingServiceImpl())
+                .addService(new SummationServiceImpl())
+                .build();
 
         server.start();
 
