@@ -2,10 +2,7 @@ package com.personel.moghini.grpc.client;
 
 import com.personel.moghini.grpc.server.GreetingServiceImpl;
 import com.proto.dummy.DummyServiceGrpc;
-import com.proto.greeting.Greeting;
-import com.proto.greeting.GreetingRequest;
-import com.proto.greeting.GreetingResponse;
-import com.proto.greeting.GreetingServiceGrpc;
+import com.proto.greeting.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
@@ -20,6 +17,9 @@ public class GrpcClient {
 
         GreetingServiceGrpc.GreetingServiceBlockingStub greetingClient =
                 GreetingServiceGrpc.newBlockingStub(managedChannel);
+
+        //UNARY
+        /*
         Greeting greeting = Greeting.newBuilder()
                 .setFirstName("masoud")
                 .setLastName("moghini")
@@ -30,8 +30,17 @@ public class GrpcClient {
                 .build();
 
         GreetingResponse greetingResponse = greetingClient.greet(greetingRequest);
-
-        System.out.println(greetingResponse.getResult());
+        */
+        var greetingManyTimesRequest =
+                GreetingManyTimesRequest
+                        .newBuilder()
+                        .setFirstName("masoud")
+                        .build();
+        var greetingManyTimesResponses =
+                greetingClient.greetManyTimes(greetingManyTimesRequest);
+        greetingManyTimesResponses.forEachRemaining(greetingManyTimesResponse -> {
+            System.out.println(greetingManyTimesResponse.getResult());
+        });
         System.out.println("shutting down channel");
         managedChannel.shutdown();
     }

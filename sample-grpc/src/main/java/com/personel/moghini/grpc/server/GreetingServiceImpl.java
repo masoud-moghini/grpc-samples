@@ -1,9 +1,6 @@
 package com.personel.moghini.grpc.server;
 
-import com.proto.greeting.Greeting;
-import com.proto.greeting.GreetingRequest;
-import com.proto.greeting.GreetingResponse;
-import com.proto.greeting.GreetingServiceGrpc;
+import com.proto.greeting.*;
 import io.grpc.stub.StreamObserver;
 
 public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImplBase {
@@ -19,5 +16,23 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
 
         responseObserver.onNext(greetingResponse);
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public void greetManyTimes(GreetingManyTimesRequest request, StreamObserver<GreetingManyTimesResponse> responseObserver) {
+        var firstName = request.getFirstName();
+        try {
+            for (int i = 1;i<10 ;i++){
+            var message = "hello dear "+firstName +"#"+i;
+            var response = GreetingManyTimesResponse.newBuilder().setResult(message).build();
+            responseObserver.onNext(response);
+                Thread.sleep(1000L);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }finally {
+            responseObserver.onCompleted();
+        }
+
     }
 }
