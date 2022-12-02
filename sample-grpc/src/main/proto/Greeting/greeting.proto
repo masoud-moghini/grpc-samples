@@ -27,7 +27,26 @@ message GreetingManyTimesResponse{
     string result = 1;
 }
 
+message LongGreetingRequest{
+    Greeting greeting_request = 1;
+}
+
+
+message LongGreetingResponse{
+    string greeting_response = 1;
+}
+
+message GreetingToEveryoneRequest{
+    string greeting = 1;
+}
+
+message GreetingToEveryoneResponse{
+    string result = 1 ;
+}
+
 service GreetingService {
     rpc greet (GreetingRequest) returns (GreetingResponse);
     rpc greetManyTimes(GreetingManyTimesRequest) returns (stream GreetingManyTimesResponse);
+    rpc longGreeting (stream GreetingManyTimesRequest) returns (LongGreetingResponse);
+    rpc greetingToEveryone (stream GreetingToEveryoneRequest) returns (stream GreetingToEveryoneResponse);
 }

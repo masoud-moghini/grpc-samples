@@ -29,6 +29,16 @@ public final class Calculate {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_calculator_CalculatorResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_calculator_PrimeNumberRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_calculator_PrimeNumberRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_calculator_AverageNumberRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_calculator_AverageNumberRequest_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -42,10 +52,16 @@ public final class Calculate {
       "\"3\n\nParameters\022\021\n\tfirstItem\030\001 \001(\003\022\022\n\nsec" +
       "ondItem\030\002 \001(\003\";\n\021CalculatorRequest\022&\n\006pa" +
       "rams\030\001 \001(\0132\026.calculator.Parameters\"$\n\022Ca" +
-      "lculatorResponse\022\016\n\006result\030\001 \001(\0032Q\n\tSumm" +
-      "ation\022D\n\003Sum\022\035.calculator.CalculatorRequ" +
-      "est\032\036.calculator.CalculatorResponseB\030\n\024c" +
-      "om.proto.calculatorP\001b\006proto3"
+      "lculatorResponse\022\016\n\006result\030\001 \001(\001\")\n\022Prim" +
+      "eNumberRequest\022\023\n\013primeNumber\030\001 \001(\003\"&\n\024A" +
+      "verageNumberRequest\022\016\n\006number\030\001 \001(\0032\357\001\n\t" +
+      "Summation\022D\n\003Sum\022\035.calculator.Calculator" +
+      "Request\032\036.calculator.CalculatorResponse\022" +
+      "M\n\tDecompose\022\036.calculator.PrimeNumberReq" +
+      "uest\032\036.calculator.CalculatorResponse0\001\022M" +
+      "\n\007Average\022 .calculator.AverageNumberRequ" +
+      "est\032\036.calculator.CalculatorResponse(\001B\030\n" +
+      "\024com.proto.calculatorP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -69,6 +85,18 @@ public final class Calculate {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_calculator_CalculatorResponse_descriptor,
         new java.lang.String[] { "Result", });
+    internal_static_calculator_PrimeNumberRequest_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_calculator_PrimeNumberRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_calculator_PrimeNumberRequest_descriptor,
+        new java.lang.String[] { "PrimeNumber", });
+    internal_static_calculator_AverageNumberRequest_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_calculator_AverageNumberRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_calculator_AverageNumberRequest_descriptor,
+        new java.lang.String[] { "Number", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

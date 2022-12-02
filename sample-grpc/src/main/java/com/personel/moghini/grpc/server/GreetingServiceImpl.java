@@ -4,6 +4,31 @@ import com.proto.greeting.*;
 import io.grpc.stub.StreamObserver;
 
 public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImplBase {
+    @Override
+    public StreamObserver<GreetingManyTimesRequest> longGreeting(StreamObserver<LongGreetingResponse> responseObserver) {
+        StreamObserver<GreetingManyTimesRequest> longGreetingRequestStreamObserver = new StreamObserver<GreetingManyTimesRequest>() {
+            String result = "";
+
+            @Override
+            public void onNext(GreetingManyTimesRequest value) {
+                System.out.println("request got in server "+ value.getFirstName());
+                result += "hello "+value.getFirstName()+" ! ";
+                System.out.println(result);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onNext(LongGreetingResponse.newBuilder().setGreetingResponse(result).build());
+                responseObserver.onCompleted();
+            }
+        };
+        return longGreetingRequestStreamObserver;
+    }
 
     @Override
     public void greet(GreetingRequest request, StreamObserver<GreetingResponse> responseObserver) {
@@ -16,6 +41,29 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
 
         responseObserver.onNext(greetingResponse);
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public StreamObserver<GreetingToEveryoneRequest> greetingToEveryone(StreamObserver<GreetingToEveryoneResponse> responseObserver) {
+        StreamObserver<GreetingToEveryoneRequest> greetingToEveryoneRequestStreamObserver =
+                new StreamObserver<GreetingToEveryoneRequest>() {
+                    @Override
+                    public void onNext(GreetingToEveryoneRequest value) {
+                        var response = "Hello Dear " +value.getGreeting();
+                        responseObserver.onNext(GreetingToEveryoneResponse.newBuilder().setResult(response).build());
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        responseObserver.onCompleted();
+                    }
+                };
+        return greetingToEveryoneRequestStreamObserver;
     }
 
     @Override

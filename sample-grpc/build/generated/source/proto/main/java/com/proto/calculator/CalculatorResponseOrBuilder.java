@@ -8,8 +8,8 @@ public interface CalculatorResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int64 result = 1;</code>
+   * <code>double result = 1;</code>
    * @return The result.
    */
-  long getResult();
+  double getResult();
 }
