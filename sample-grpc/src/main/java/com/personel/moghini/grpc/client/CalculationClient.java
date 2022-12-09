@@ -42,11 +42,23 @@ public class CalculationClient {
         }
 
     }
+    private void findSquareRoot(ManagedChannel channel){
+        CountDownLatch latch = new CountDownLatch(1);
+        SummationGrpc.SummationBlockingStub summationStub = SummationGrpc.newBlockingStub(channel);
+
+        try {
+            var response = summationStub.squareRoot(SquareRootRequest.newBuilder().setNumber(-15).build());
+            System.out.println(response.getResult());
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+    }
     public void run(){
         ManagedChannel managedChannel= ManagedChannelBuilder.forAddress("localhost",50010)
                 .usePlaintext()
                 .build();
-        findMaximum(managedChannel);
+        //findMaximum(managedChannel);
+        findSquareRoot(managedChannel);
     }
     public static void main(String[] args) {
 

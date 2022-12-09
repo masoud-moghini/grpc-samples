@@ -139,6 +139,37 @@ public final class SummationGrpc {
     return getFindMaxMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.proto.calculator.SquareRootRequest,
+      com.proto.calculator.CalculatorResponse> getSquareRootMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SquareRoot",
+      requestType = com.proto.calculator.SquareRootRequest.class,
+      responseType = com.proto.calculator.CalculatorResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.proto.calculator.SquareRootRequest,
+      com.proto.calculator.CalculatorResponse> getSquareRootMethod() {
+    io.grpc.MethodDescriptor<com.proto.calculator.SquareRootRequest, com.proto.calculator.CalculatorResponse> getSquareRootMethod;
+    if ((getSquareRootMethod = SummationGrpc.getSquareRootMethod) == null) {
+      synchronized (SummationGrpc.class) {
+        if ((getSquareRootMethod = SummationGrpc.getSquareRootMethod) == null) {
+          SummationGrpc.getSquareRootMethod = getSquareRootMethod =
+              io.grpc.MethodDescriptor.<com.proto.calculator.SquareRootRequest, com.proto.calculator.CalculatorResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SquareRoot"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.proto.calculator.SquareRootRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.proto.calculator.CalculatorResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new SummationMethodDescriptorSupplier("SquareRoot"))
+              .build();
+        }
+      }
+    }
+    return getSquareRootMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -215,6 +246,16 @@ public final class SummationGrpc {
       return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getFindMaxMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     *with error status
+     * </pre>
+     */
+    public void squareRoot(com.proto.calculator.SquareRootRequest request,
+        io.grpc.stub.StreamObserver<com.proto.calculator.CalculatorResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSquareRootMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -245,6 +286,13 @@ public final class SummationGrpc {
                 com.proto.calculator.MaximumNumberRequest,
                 com.proto.calculator.CalculatorResponse>(
                   this, METHODID_FIND_MAX)))
+          .addMethod(
+            getSquareRootMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                com.proto.calculator.SquareRootRequest,
+                com.proto.calculator.CalculatorResponse>(
+                  this, METHODID_SQUARE_ROOT)))
           .build();
     }
   }
@@ -294,6 +342,17 @@ public final class SummationGrpc {
       return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
           getChannel().newCall(getFindMaxMethod(), getCallOptions()), responseObserver);
     }
+
+    /**
+     * <pre>
+     *with error status
+     * </pre>
+     */
+    public void squareRoot(com.proto.calculator.SquareRootRequest request,
+        io.grpc.stub.StreamObserver<com.proto.calculator.CalculatorResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSquareRootMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -324,6 +383,16 @@ public final class SummationGrpc {
       return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
           getChannel(), getDecomposeMethod(), getCallOptions(), request);
     }
+
+    /**
+     * <pre>
+     *with error status
+     * </pre>
+     */
+    public com.proto.calculator.CalculatorResponse squareRoot(com.proto.calculator.SquareRootRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSquareRootMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -347,12 +416,24 @@ public final class SummationGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSumMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     *with error status
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.proto.calculator.CalculatorResponse> squareRoot(
+        com.proto.calculator.SquareRootRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSquareRootMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_SUM = 0;
   private static final int METHODID_DECOMPOSE = 1;
-  private static final int METHODID_AVERAGE = 2;
-  private static final int METHODID_FIND_MAX = 3;
+  private static final int METHODID_SQUARE_ROOT = 2;
+  private static final int METHODID_AVERAGE = 3;
+  private static final int METHODID_FIND_MAX = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -377,6 +458,10 @@ public final class SummationGrpc {
           break;
         case METHODID_DECOMPOSE:
           serviceImpl.decompose((com.proto.calculator.PrimeNumberRequest) request,
+              (io.grpc.stub.StreamObserver<com.proto.calculator.CalculatorResponse>) responseObserver);
+          break;
+        case METHODID_SQUARE_ROOT:
+          serviceImpl.squareRoot((com.proto.calculator.SquareRootRequest) request,
               (io.grpc.stub.StreamObserver<com.proto.calculator.CalculatorResponse>) responseObserver);
           break;
         default:
@@ -450,6 +535,7 @@ public final class SummationGrpc {
               .addMethod(getDecomposeMethod())
               .addMethod(getAverageMethod())
               .addMethod(getFindMaxMethod())
+              .addMethod(getSquareRootMethod())
               .build();
         }
       }

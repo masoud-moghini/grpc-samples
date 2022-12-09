@@ -29,10 +29,16 @@ message AverageNumberRequest{
 message MaximumNumberRequest{
     int64 number = 1;
 }
+message SquareRootRequest{
+    int64 number = 1;
+}
 service Summation{
     rpc Sum (CalculatorRequest) returns (CalculatorResponse);
     rpc Decompose(PrimeNumberRequest) returns(stream CalculatorResponse);
     rpc Average(stream AverageNumberRequest )returns (CalculatorResponse);
     rpc FindMax(stream MaximumNumberRequest )returns (stream CalculatorResponse);
-    
+
+
+    //with error status
+    rpc SquareRoot(SquareRootRequest ) returns (CalculatorResponse);
 }

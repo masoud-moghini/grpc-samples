@@ -1,6 +1,7 @@
 package com.personel.moghini.grpc.server;
 
 import com.proto.calculator.*;
+import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 
 import java.util.ArrayList;
@@ -92,5 +93,20 @@ public class CalculationServiceImpl extends SummationGrpc.SummationImplBase {
             }
         };
         return maximumNumberRequest;
+    }
+
+    @Override
+    public void squareRoot(SquareRootRequest request, StreamObserver<CalculatorResponse> responseObserver) {
+        System.out.println("got number " + request.getNumber());
+
+        if (request.getNumber()> 0){
+            responseObserver.onNext(CalculatorResponse.newBuilder()
+                    .setResult(Math.sqrt(request.getNumber()))
+                       .build());
+            responseObserver.onCompleted();
+        }else {
+            responseObserver.onError(Status.INVALID_ARGUMENT.withDescription("should be positive")
+            .augmentDescription("so we got an error").asRuntimeException());
+        }
     }
 }
