@@ -9,10 +9,49 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class CalculationClient {
-    public static void main(String[] args) {
+    private void findMaximum(ManagedChannel channel){
+        SummationGrpc.SummationStub summationStub = SummationGrpc.newStub(channel);
+        CountDownLatch latch = new CountDownLatch(1);
+        StreamObserver<CalculatorResponse> responseStreamObserver = new StreamObserver<CalculatorResponse>() {
+            @Override
+            public void onNext(CalculatorResponse value) {
+                System.out.println(new StringBuffer().append("maximum until now ")
+                .append(value).append('\n'));
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                System.out.println("last response fetched");
+                latch.countDown();
+            }
+        };
+        StreamObserver<MaximumNumberRequest> requestStreamObserver = summationStub.findMax(responseStreamObserver);
+        requestStreamObserver.onNext(MaximumNumberRequest.newBuilder().setNumber(15).build());
+        requestStreamObserver.onNext(MaximumNumberRequest.newBuilder().setNumber(1).build());
+        requestStreamObserver.onNext(MaximumNumberRequest.newBuilder().setNumber(155).build());
+        requestStreamObserver.onNext(MaximumNumberRequest.newBuilder().setNumber(159).build());
+        try {
+            latch.await(3,TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void run(){
         ManagedChannel managedChannel= ManagedChannelBuilder.forAddress("localhost",50010)
                 .usePlaintext()
                 .build();
+        findMaximum(managedChannel);
+    }
+    public static void main(String[] args) {
+
+        CalculationClient client = new CalculationClient();
+        client.run();
         //BLOCKING STUB
         /*
         SummationGrpc.SummationBlockingStub summationBlockingStub =  SummationGrpc.
@@ -35,6 +74,7 @@ public class CalculationClient {
         });
 
          */
+        /*
         SummationGrpc.SummationStub grpcClient = SummationGrpc.newStub(managedChannel);
         CountDownLatch latch = new CountDownLatch(5);
         StreamObserver<CalculatorResponse> averageNumberRequestStreamObserver = new StreamObserver<CalculatorResponse>() {
@@ -65,5 +105,7 @@ public class CalculationClient {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        */
     }
 }

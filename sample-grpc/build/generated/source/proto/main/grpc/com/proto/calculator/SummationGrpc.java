@@ -108,6 +108,37 @@ public final class SummationGrpc {
     return getAverageMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.proto.calculator.MaximumNumberRequest,
+      com.proto.calculator.CalculatorResponse> getFindMaxMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "FindMax",
+      requestType = com.proto.calculator.MaximumNumberRequest.class,
+      responseType = com.proto.calculator.CalculatorResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+  public static io.grpc.MethodDescriptor<com.proto.calculator.MaximumNumberRequest,
+      com.proto.calculator.CalculatorResponse> getFindMaxMethod() {
+    io.grpc.MethodDescriptor<com.proto.calculator.MaximumNumberRequest, com.proto.calculator.CalculatorResponse> getFindMaxMethod;
+    if ((getFindMaxMethod = SummationGrpc.getFindMaxMethod) == null) {
+      synchronized (SummationGrpc.class) {
+        if ((getFindMaxMethod = SummationGrpc.getFindMaxMethod) == null) {
+          SummationGrpc.getFindMaxMethod = getFindMaxMethod =
+              io.grpc.MethodDescriptor.<com.proto.calculator.MaximumNumberRequest, com.proto.calculator.CalculatorResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "FindMax"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.proto.calculator.MaximumNumberRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.proto.calculator.CalculatorResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new SummationMethodDescriptorSupplier("FindMax"))
+              .build();
+        }
+      }
+    }
+    return getFindMaxMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -177,6 +208,13 @@ public final class SummationGrpc {
       return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getAverageMethod(), responseObserver);
     }
 
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.proto.calculator.MaximumNumberRequest> findMax(
+        io.grpc.stub.StreamObserver<com.proto.calculator.CalculatorResponse> responseObserver) {
+      return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getFindMaxMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -200,6 +238,13 @@ public final class SummationGrpc {
                 com.proto.calculator.AverageNumberRequest,
                 com.proto.calculator.CalculatorResponse>(
                   this, METHODID_AVERAGE)))
+          .addMethod(
+            getFindMaxMethod(),
+            io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
+              new MethodHandlers<
+                com.proto.calculator.MaximumNumberRequest,
+                com.proto.calculator.CalculatorResponse>(
+                  this, METHODID_FIND_MAX)))
           .build();
     }
   }
@@ -240,6 +285,14 @@ public final class SummationGrpc {
         io.grpc.stub.StreamObserver<com.proto.calculator.CalculatorResponse> responseObserver) {
       return io.grpc.stub.ClientCalls.asyncClientStreamingCall(
           getChannel().newCall(getAverageMethod(), getCallOptions()), responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.proto.calculator.MaximumNumberRequest> findMax(
+        io.grpc.stub.StreamObserver<com.proto.calculator.CalculatorResponse> responseObserver) {
+      return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
+          getChannel().newCall(getFindMaxMethod(), getCallOptions()), responseObserver);
     }
   }
 
@@ -299,6 +352,7 @@ public final class SummationGrpc {
   private static final int METHODID_SUM = 0;
   private static final int METHODID_DECOMPOSE = 1;
   private static final int METHODID_AVERAGE = 2;
+  private static final int METHODID_FIND_MAX = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -337,6 +391,9 @@ public final class SummationGrpc {
       switch (methodId) {
         case METHODID_AVERAGE:
           return (io.grpc.stub.StreamObserver<Req>) serviceImpl.average(
+              (io.grpc.stub.StreamObserver<com.proto.calculator.CalculatorResponse>) responseObserver);
+        case METHODID_FIND_MAX:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.findMax(
               (io.grpc.stub.StreamObserver<com.proto.calculator.CalculatorResponse>) responseObserver);
         default:
           throw new AssertionError();
@@ -392,6 +449,7 @@ public final class SummationGrpc {
               .addMethod(getSumMethod())
               .addMethod(getDecomposeMethod())
               .addMethod(getAverageMethod())
+              .addMethod(getFindMaxMethod())
               .build();
         }
       }

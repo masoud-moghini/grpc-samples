@@ -2,7 +2,6 @@ package com.personel.moghini.grpc.server;
 
 import com.proto.calculator.*;
 import io.grpc.stub.StreamObserver;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,5 +66,31 @@ public class CalculationServiceImpl extends SummationGrpc.SummationImplBase {
         ).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public StreamObserver<MaximumNumberRequest> findMax(StreamObserver<CalculatorResponse> responseObserver) {
+        var maximumNumberRequest = new StreamObserver<MaximumNumberRequest>() {
+            long maximum = Long.MIN_VALUE;
+            @Override
+            public void onNext(MaximumNumberRequest value) {
+                System.out.println("got number " + value + "\n");
+                if (value.getNumber() > maximum){
+                    maximum = value.getNumber();
+                    responseObserver.onNext(CalculatorResponse.newBuilder().setResult(maximum).build());
+                }
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                responseObserver.onCompleted();
+            }
+        };
+        return maximumNumberRequest;
     }
 }
