@@ -12,6 +12,7 @@ public class GrpcServer {
         Server server = ServerBuilder.forPort(50010)
                 .addService(new GreetingServiceImpl())
                 .addService(new CalculationServiceImpl())
+                .addService(new BlogServiecImpl())
                 .build();
 
         server.start();
